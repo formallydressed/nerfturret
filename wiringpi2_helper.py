@@ -68,9 +68,14 @@ class Led():
   def __init__(self,p):
     self.p=p
     wp.pinMode(self.p,1)
+    self.state=0
 
   def on(self):
-    wp.digitalWrite(self.p,1)
+    if not self.state:
+      wp.digitalWrite(self.p,1)
+      self.state=1
 
   def off(self):
-    wp.digitalWrite(self.p,0)
+    if self.state:
+      wp.digitalWrite(self.p,0)
+      self.state=0

@@ -38,12 +38,12 @@ class WiiMote():
         else: return (self.wm.state["buttons"]&cwiid.BTN_MINUS)!=0
 
     def button_two(self, only=False):
-        if only: return (self.wm.state["buttons"]-cwiid.BTN_ONE)==0
-        else: return (self.wm.state["buttons"]&cwiid.BTN_ONE)!=0
+        if only: return (self.wm.state["buttons"]-cwiid.BTN_2)==0
+        else: return (self.wm.state["buttons"]&cwiid.BTN_2)!=0
 
     def button_one(self, only=False):
-        if only: return (self.wm.state["buttons"]-cwiid.BTN_TWO)==0
-        else: return (self.wm.state["buttons"]&cwiid.BTN_TWO)!=0
+        if only: return (self.wm.state["buttons"]-cwiid.BTN_1)==0
+        else: return (self.wm.state["buttons"]&cwiid.BTN_1)!=0
 
     def button_A(self, only=False):
         if only: return (self.wm.state["buttons"]-cwiid.BTN_A)==0
