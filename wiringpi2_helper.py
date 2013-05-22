@@ -6,7 +6,7 @@ import time
 wp.wiringPiSetup()
 
 class StepperMotor():
-  def __init___(self, p1,p2,p3,p4,f=False, pos=False, delay=2):
+  def __init__(self, p1,p2,p3,p4,f=False, pos=False, delay=2):
     self.p1=p1
     self.p2=p2
     self.p3=p3
@@ -25,30 +25,30 @@ class StepperMotor():
     if self.pos:
       self.position=self.pos
     
-  def forward(self, steps=1, delay=self.delay):
+  def forward(self, steps=1):
     for i in range(0, steps):
-      setStep(1, 0, 1, 0)
-      time.sleep(delay)
-      setStep(0, 1, 1, 0)
-      time.sleep(delay)
-      setStep(0, 1, 0, 1)
-      time.sleep(delay)
-      setStep(1, 0, 0, 1)
-      time.sleep(delay)
-      setStep(0, 0, 0, 0)
+      self.setStep(1, 0, 1, 0)
+      time.sleep(self.delay)
+      self.setStep(0, 1, 1, 0)
+      time.sleep(self.delay)
+      self.setStep(0, 1, 0, 1)
+      time.sleep(self.delay)
+      self.setStep(1, 0, 0, 1)
+      time.sleep(self.delay)
+      self.setStep(0, 0, 0, 0)
       self.position+=1
 
-  def backwards(self, steps=1, delay=self.delay):
+  def backwards(self, steps=1):
     for i in range(0, steps):
-      setStep(1, 0, 0, 1)
-      time.sleep(delay)
-      setStep(0, 1, 0, 1)
-      time.sleep(delay)
-      setStep(0, 1, 1, 0)
-      time.sleep(delay)
-      setStep(1, 0, 1, 0)
-      time.sleep(delay)
-      setStep(0, 0, 0, 0)
+      self.setStep(1, 0, 0, 1)
+      time.sleep(self.delay)
+      self.setStep(0, 1, 0, 1)
+      time.sleep(self.delay)
+      self.setStep(0, 1, 1, 0)
+      time.sleep(self.delay)
+      self.setStep(1, 0, 1, 0)
+      time.sleep(self.delay)
+      self.setStep(0, 0, 0, 0)
       self.position-=1
   
   def setStep(self,w1, w2, w3, w4):
@@ -57,7 +57,14 @@ class StepperMotor():
     wp.digitalWrite(self.p3, w3)
     wp.digitalWrite(self.p4, w4)
 
-class led():
+  def specific(self,p):
+    diff=p-self.position
+    if diff>0:
+      self.forward(steps=diff)
+    elif diff<0:
+      self.backwards(steps=(diff*-1))
+
+class Led():
   def __init__(self,p):
     self.p=p
     wp.pinMode(self.p,1)

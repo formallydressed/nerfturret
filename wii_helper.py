@@ -10,7 +10,7 @@ class WiiMote():
         self.wm=cwiid.Wiimote()
         print "Wii Remote connected"
         print "Press the Plus and Minus buttons together to disconnect the Remote"
-        wm.rpt_mode=cwiid.RPT_BTN
+        self.wm.rpt_mode=cwiid.RPT_BTN
         self.led_state=0
 
     def button_up(self, only=False):
@@ -23,7 +23,7 @@ class WiiMote():
 
     def button_right(self, only=False):
         if only: return (self.wm.state["buttons"]-cwiid.BTN_RIGHT)==0
-        else: return (wm.state["buttons"]&cwiid.BTN_RIGHT)!=0
+        else: return (self.wm.state["buttons"]&cwiid.BTN_RIGHT)!=0
 
     def button_left(self, only=False):
         if only: return (self.wm.state["buttons"]-cwiid.BTN_LEFT)==0
